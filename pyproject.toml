@@ -15,7 +15,7 @@ sqlalchemy = "^2.0.29"
 alembic = "^1.13.1"
 pydantic-settings = "^2.2.1"
 asyncio = "^3.4.3"
-psycopg = "^3.1.18"
+psycopg = {extras = ["binary"], version = "^3.1.18"}
 
 
 [build-system]
