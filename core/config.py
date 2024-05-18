@@ -1,22 +1,17 @@
-from pathlib import Path
-from pydantic import BaseModel
-from pydantic_settings import BaseSettings
+from pydantic import Field, PostgresDsn
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# DB_PATH = BASE_DIR / "db.sqlite3"
-DB_PATH = "postgresql+psycopg_async://postgres:xthnjgjkj[@127.0.0.1/dz_main"
+from core.models import MainSettings
 
 
-class DbSettings(BaseModel):
-    url: str = f"{DB_PATH}"
-    # echo: bool = False
-    echo: bool = False
+class DbSettings(MainSettings):
+    url: PostgresDsn = Field(alias="MAIN_DB_PATH")
+    echo: bool = Field(alias="MAIN_DB_ECHO", default=False)
 
 
-class Settings(BaseSettings):
-    api_v1_prefix: str = "/api/v1"
+class Settings(MainSettings):
+    api_v1_prefix: str = Field(default="/api/v1")
     db: DbSettings = DbSettings()
 
 
 settings = Settings()
+db_settings = DbSettings()
