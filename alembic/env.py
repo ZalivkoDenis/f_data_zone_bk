@@ -37,7 +37,11 @@ if sys.platform == "win32":
 
 from core.config import settings
 
-config.set_main_option("sqlalchemy.url", settings.db.url)
+# config.set_main_option("sqlalchemy.url", settings.db.url)
+config.set_main_option(
+    "sqlalchemy.url",
+    settings.db.url,
+)
 
 
 def run_migrations_offline() -> None:

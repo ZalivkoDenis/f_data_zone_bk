@@ -3,14 +3,28 @@ from typing import TYPE_CHECKING
 
 from . import Base
 
-from sqlalchemy import String
+from core.mixins import UlEmailPasswordMixin
+
+from sqlalchemy import String, LargeBinary
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .profile import Profile
 
 
-class User(Base):
+class User(UlEmailPasswordMixin, Base):
+    """
+    User model
 
-    username: Mapped[str] = mapped_column(String(32), unique=True)
+    Аттрибуты, устанавливаемые UlEmailPasswordMixin:
+        user_email
+        (X) password - не используется, т.к. используется авторизация по JWT-токену
+        password_hash
 
+    """
+
+    _user_email_as_login = True
+
+    active: Mapped[bool] = mapped_column(default=False)
+
+    # profile
     profile: Mapped[Profile] = relationship(back_populates="user")

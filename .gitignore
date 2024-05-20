@@ -1,2 +1,6 @@
+/.idea
+/*.sqlite3
+/.env
+certs/
 .env
 .idea
