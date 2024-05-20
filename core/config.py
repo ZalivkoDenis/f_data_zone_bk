@@ -1,6 +1,17 @@
-from pydantic import Field, PostgresDsn
+from pathlib import Path
+
+from pydantic import Field, PostgresDsn, BaseModel
 
 from core.models import MainSettings
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+class AuthJWT(BaseModel):
+    private_key_path: str = BASE_DIR / "certs" / "jwt-private.pem"
+    public_key_path: str = BASE_DIR / "certs" / "jwt-public.pem"
+    algorithm: str = "RS256"
+    access_token_expire_minutes: int = 15
 
 
 class DbSettings(MainSettings):
@@ -11,6 +22,7 @@ class DbSettings(MainSettings):
 class Settings(MainSettings):
     api_v1_prefix: str = Field(default="/api/v1")
     db: DbSettings = DbSettings()
+    auth_jwt: AuthJWT = AuthJWT()
 
 
 settings = Settings()

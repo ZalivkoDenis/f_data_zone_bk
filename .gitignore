@@ -4,3 +4,5 @@
 certs/
 .env
 .idea
+/core/cipher/jwt-private.pem
+/core/cipher/rsa_local_secret.key

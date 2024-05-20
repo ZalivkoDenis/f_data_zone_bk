@@ -24,7 +24,8 @@ class User(UlEmailPasswordMixin, Base):
 
     _user_email_as_login = True
 
-    active: Mapped[bool] = mapped_column(default=False)
+    active: Mapped[bool] = mapped_column(default=False, server_default=None)
+    superuser: Mapped[bool] = mapped_column(default=False, server_default=None)
 
     # profile
     profile: Mapped[Profile] = relationship(back_populates="user")
