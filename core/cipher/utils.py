@@ -1,3 +1,4 @@
+import uuid
 from datetime import timedelta, datetime, UTC
 
 import jwt
@@ -39,6 +40,8 @@ def encode_jwt(
         exp=expire,
         # iat - служебное поле, которое показывает дату/время генерации токена.
         iat=now,
+        # jti - JSON Token Id
+        jti=str(uuid.uuid4()),
     )
     encoded = jwt.encode(
         to_encode,

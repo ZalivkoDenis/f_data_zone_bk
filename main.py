@@ -12,9 +12,9 @@ from api_v1.auth.crud import create_admin_if_not_exists
 async def lifespan(app: FastAPI):
     # Создаёт admin@ferico.by с дефолтным паролем "admin", если база пустая.
     # Пароль необходимо сразу поменять.
-    async with db_helper.session_factory() as session:
-        await create_admin_if_not_exists(session)
-        await session.close()
+    # async with db_helper.session_factory() as session:
+    #     await create_admin_if_not_exists(session)
+    #     await session.close()
     yield
 
 

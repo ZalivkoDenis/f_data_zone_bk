@@ -30,7 +30,7 @@ class UlEmailPasswordMixin:
             unique=cls._user_email_unique,
         )
 
-    # Пароль пользователя, зашифрованный c использованием RSA-ключей AES-алгоритмом
+    # Пароль пользователя, зашифрованный с использованием RSA-ключей AES-алгоритмом
     @declared_attr
     def password(cls) -> Mapped[bytes | None]:
         return mapped_column(
