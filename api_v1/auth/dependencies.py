@@ -10,7 +10,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
-from core.models import User
+from core.cipher import rsa_utils
 from . import crud
 from .schemas import UserCredentials
 from .utils import (
@@ -20,7 +20,7 @@ from .utils import (
 )
 
 from core.helpers import db_helper
-from core.cipher import auth_utils
+from core.models import User
 
 # Используется для проверки токена Bearer в заголовке.
 # Соответственно, токен должен находиться в заголовке Authorization с префиксом Bearer.
@@ -47,7 +47,7 @@ async def validate_auth_user(
     ) is None:
         raise unauthed_exc
 
-    if not auth_utils.validate_password(
+    if not rsa_utils.validate_password(
         password=credentials.password,
         hashed_password=user.password_hash,
     ):
@@ -75,7 +75,7 @@ def get_current_token_payload(
         )
 
     try:
-        payload = auth_utils.decode_jwt(  # 3
+        payload = rsa_utils.decode_jwt(  # 3
             token=token,
         )
     except InvalidTokenError as e:

@@ -2,7 +2,7 @@ from pathlib import Path
 
 from pydantic import Field, PostgresDsn, BaseModel
 
-from core.models import MainSettings
+from core.models.settings import MainSettings
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

@@ -9,7 +9,7 @@ from core.mixins import UserRelationMixin, ProfileRelationMixin, UlEmailPassword
 
 
 if TYPE_CHECKING:
-    from .user import User
+    pass
 
 
 class Profile(UserRelationMixin, Base):
@@ -36,26 +36,6 @@ class Profile(UserRelationMixin, Base):
     )
 
 
-class B24Profile(ProfileRelationMixin, UlEmailPasswordMixin, Base):
-    """
-    Корпоративный Битрикс24: ferico.bitrix24.by (one-to-one)
-    Модель внешнего профиля для текущего пользователя
-
-    Аттрибуты, устанавливаемые ProfileRelationMixin - связь с Profile
-        profile_id
-        profile
-
-    Аттрибуты, устанавливаемые UlEmailPasswordMixin
-        user_email
-        password
-        (X) password_hash - не используется
-
-    """
-
-    _profile_id_unique = True  # one-to_one
-    _profile_back_populates = "b24profile"
-
-
 class EmailServiceProfile(ProfileRelationMixin, UlEmailPasswordMixin, Base):
     """
     Обслуживаемые профили почтовых сервисов
@@ -76,3 +56,25 @@ class EmailServiceProfile(ProfileRelationMixin, UlEmailPasswordMixin, Base):
 
     _profile_id_unique = False  # one-to-many
     _profile_back_populates = "email_svc_profiles"
+
+    imap_server: Mapped[str] = mapped_column(String(64), nullable=False)
+
+
+class B24Profile(ProfileRelationMixin, UlEmailPasswordMixin, Base):
+    """
+    Корпоративный Битрикс24: ferico.bitrix24.by (one-to-one)
+    Модель внешнего профиля для текущего пользователя
+
+    Аттрибуты, устанавливаемые ProfileRelationMixin - связь с Profile
+        profile_id
+        profile
+
+    Аттрибуты, устанавливаемые UlEmailPasswordMixin
+        user_email
+        password
+        (X) password_hash - не используется
+
+    """
+
+    _profile_id_unique = True  # one-to_one
+    _profile_back_populates = "b24profile"

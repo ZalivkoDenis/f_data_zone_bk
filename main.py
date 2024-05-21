@@ -1,11 +1,12 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends
 
-from core.helpers import db_helper
+# from core.helpers import db_helper
 from api_v1 import router as api_v1_router
 
 from core.config import settings
-from api_v1.auth.crud import create_admin_if_not_exists
+
+# from api_v1.auth.crud import create_admin_if_not_exists
 
 
 @asynccontextmanager

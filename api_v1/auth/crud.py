@@ -4,9 +4,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
 from api_v1.auth.schemas import CreateUser
-from core.cipher.utils import hash_password
+from core.cipher.rsa_utils import hash_password
 from core.helpers import db_helper
 from core.models import User
+
+
+# from core.models.user import User
 
 
 async def get_user_by_user_email(

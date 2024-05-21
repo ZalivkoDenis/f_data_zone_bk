@@ -1,7 +1,7 @@
 from datetime import timedelta
 
-from .schemas import UserSchema, UserCredentials
-from core.cipher.utils import encode_jwt, decode_jwt
+from core.cipher import rsa_utils
+from .schemas import UserSchema
 from core.config import settings
 
 TOKEN_TYPE_FIELD = "type"
@@ -19,7 +19,7 @@ def create_jwt(
         TOKEN_TYPE_FIELD: token_type,
     }
     jwt_payload.update(token_data)
-    return encode_jwt(
+    return rsa_utils.encode_jwt(
         payload=jwt_payload,
         expire_minutes=expire_minutes,
         expire_timedelta=expire_timedelta,
